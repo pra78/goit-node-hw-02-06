@@ -24,8 +24,8 @@ router.get("/", async (req, res, next) => {
 
 router.get("/:contactId", async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const result = await contacts.getContactById(id);
+    const { contactId } = req.params;
+    const result = await contacts.getContactById(contactId);
     if (!result) {
       throw HttpError(404, "Not found");
     }
@@ -36,7 +36,16 @@ router.get("/:contactId", async (req, res, next) => {
 });
 
 router.post("/", async (req, res, next) => {
-  res.json({ message: "template message" });
+  try {
+    const { error } = addSchema.validate(req.body);
+    if (error) {
+      throw HttpError(400, error.message);
+    }
+    const result = await contacts.addContact(req.body);
+    res.status(201).json(result);
+  } catch (error) {
+    next(error);
+  }
 });
 
 router.delete("/:contactId", async (req, res, next) => {
