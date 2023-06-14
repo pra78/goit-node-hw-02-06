@@ -61,7 +61,7 @@ router.delete("/:id", async (req, res, next) => {
   }
 });
 
-router.put("/:contactId", async (req, res, next) => {
+router.put("/:id", async (req, res, next) => {
   try {
     const { error } = addSchema.validate(req.body);
     if (error) {
