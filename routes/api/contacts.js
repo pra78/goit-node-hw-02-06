@@ -19,7 +19,7 @@ router.get("/", listContacts);
 
 router.get("/:id", isValidId, getById);
 
-router.post("/", addContact);
+router.post("/", validateBody(schemas.addSchema), addContact);
 
 router.delete("/:id", isValidId, deleteById);
 
