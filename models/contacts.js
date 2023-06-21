@@ -27,7 +27,7 @@ contactSchema.post("save", handleMongooseError);
 
 const addSchema = Joi.object().keys({
   name: Joi.string().required().messages({
-    "any.required": "missing field name",
+    "any.required": "Set name for contact",
   }),
   email: Joi.string().email().required().messages({
     "any.required": "missing field email",
