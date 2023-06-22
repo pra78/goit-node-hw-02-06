@@ -5,6 +5,7 @@ const {
   login,
   logout,
   getCurrent,
+  updateSubscription,
 } = require("../../controllers/auth");
 
 const { validateBody, authenticate } = require("../../middlewares");
@@ -24,5 +25,12 @@ router.post("/logout", authenticate, logout);
 
 // get current
 router.get("/current", authenticate, getCurrent);
+
+router.patch(
+  "/:id/subscription",
+  authenticate,
+  validateBody(schemas.updateSubscriptionSchema),
+  updateSubscription
+);
 
 module.exports = router;
