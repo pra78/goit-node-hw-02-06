@@ -2,6 +2,8 @@ const express = require("express");
 
 const {
   register,
+  verifyEmail,
+  resendVerifyEmail,
   login,
   logout,
   getCurrent,
@@ -17,6 +19,14 @@ const router = express.Router();
 
 // sign up
 router.post("/register", validateBody(schemas.registerSchema), register);
+
+router.get("/verify/:verificationToken", verifyEmail);
+
+router.post(
+  "/verify",
+  validateBody(schemas.verifyEmailSchema),
+  resendVerifyEmail
+);
 
 // sign in
 router.post("/login", validateBody(schemas.loginSchema), login);
